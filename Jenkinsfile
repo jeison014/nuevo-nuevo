@@ -5,7 +5,7 @@ pipeline {
         stage('Docker version') {
             steps {
             
-                shell 'docker version'
+                sh 'docker version'
             }
         }
         
@@ -18,17 +18,17 @@ pipeline {
         stage('Test') {
             steps{
                 dir('lesson-1') {
-                    shell "ls -la "
-                    shell "pwd"
+                    sh "ls -la "
+                    sh "pwd"
                 }
-                    shell "ls -la "
-                    shell "pwd"
+                    sh "ls -la "
+                    sh "pwd"
             }
         }
         stage('Build docker image') {
             steps{
                 dir('lesson-1') {
-                    shell 'docker build -t jeison014/jenkins-images .'
+                    sh 'docker build -t jeison014/jenkins-images .'
                 }
             
             }
@@ -37,7 +37,7 @@ pipeline {
          stage('Push docker image to DockerHub') {
             steps{
                 withDockerRegistry(credentialsId: 'dockerhub-cred-jeison014', url: 'https://index.docker.io/v1/') {
-                    shell '''
+                    sh '''
                         docker push jeison014/jenkins-images
                     '''
                 }
